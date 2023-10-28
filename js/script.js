@@ -2,36 +2,44 @@
 
 const images = [ "./img/01.jpg", "./img/02.jpg", "./img/03.jpg" , "./img/04.jpg"];
 console.log(images);
+const itemsElem = document.querySelector (".items")
 
-slideElem = document.querySelector(".item")
-
-let imageString = "";
+let imageString =""
 for (let i = 0; i < images.length; i++) {
-    const curImages = images[i];
-    
-    imageString = `<img class="slide-image" src="${curImages}" alt=""`;
+     const image = images [i];
+    imageString += 
+    `<div class="item">
+        <img src=${images [i]} alt="">
+    </div>`
+    console.log(imageString);
 }
-slideElem.innerHTML = imageString
-    console.log(slideElem);
 
-const slideElems = document.querySelectorAll(".slide-image");
-    console.log(slideElems);
+itemsElem.innerHTML += imageString;
+let currentIndex = 0;
+const slideElems = document.querySelectorAll(".item")
+slideElems[currentIndex].classList.add("active");
 
-    let currentSlideIndex = 0
-    slideElems[currentSlideIndex].classList.add("current")
+// pulsante avanti
 
-    document.querySelector(".prev").addEventListener("click", function (event) {
-        event.preventDefault();
-        if (currentSlideIndex < slideElems.length -1){
-            slideElems [currentSlideIndex].classList.remove ("current");
-            currentSlideIndex++;
-            slideElems[currentSlideIndex].classList.add ("current")
-        }
-        
-    })
+document.querySelector(".next").addEventListener ("click", function () {
+    slideElems[currentIndex].classList.remove("active");
 
-    document.querySelector("next")addEventListener("click", function (event)
-        event.preventDefault();{
-            
-        }
-    )
+    if (currentIndex < slideElems.length - 1) {
+        currentIndex++;
+    } else {
+        currentIndex = 0
+    }
+    slideElems[currentIndex].classList.add("active");
+});   
+
+// pulsante indietro
+
+document.querySelector(".prev").addEventListener("click", function() {
+    slideElems[currentIndex].classList.remove("active");
+    if(currentIndex > 0) {
+        currentIndex--;
+    } else {
+        currentIndex = slideElems.length - 1;
+    }
+    slideElems[currentIndex].classList.add("active");
+})
